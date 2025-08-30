@@ -1,6 +1,8 @@
 import test, { expect } from "playwright/test";
 import { PetController } from "../controllers/pet/pet.controller";
 import { CreatePetBodyBuilder } from "../testData/pet/builders/createPetBody.builder";
+import createPetSchema from "../testData/pet/jsonSchema/createPet.schema.json";
+import { validateSchema } from "../utils/schemaValidator";
 
 test.describe("PET API TESTS", () => {
   test("Verify creating PET endpoint", async () => {
@@ -28,9 +30,14 @@ test.describe("PET API TESTS", () => {
       responseObj.status,
       "Status code of Create Pet API should be valid"
     ).toBe(200);
+
     expect(
       responseObj.body,
       "Response Body of Create Pet API should be valid"
     ).toMatchObject(body);
+
+    await test.step("Validate JSON schema", async () => {
+      validateSchema(createPetSchema, body);
+    });
   });
 });
