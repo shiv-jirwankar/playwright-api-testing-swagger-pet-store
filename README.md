@@ -2,26 +2,52 @@
 
 This project demonstrates API testing for the Swagger Pet Store using Playwright and TypeScript.
 
-## Key Libraries
-- **@playwright/test**: End-to-end testing framework for browser and API automation.
-- **openapi-typescript**: Generates TypeScript types from Swagger/OpenAPI schemas for type-safe API requests and responses.
-- **typescript**: Type safety and modern JavaScript features.
+## Project Structure
 
-## Approach
-- **Type-Safe API Calls**: Types for request/response are generated from the Swagger schema using `openapi-typescript`.
-- **Reusable Controllers**: API endpoints are organized into controller classes (e.g., `PetController`) that extend a common `BaseController` for HTTP methods.
-- **Playwright Test Runner**: Tests are written using Playwright's test runner, making requests to the live Swagger Pet Store API and validating responses.
-- **Automated Schema Sync**: Utility scripts download the latest Swagger schema and regenerate types to keep tests up-to-date.
+- `src/controllers/`
+  - `base.controller.ts`: Base class for API controllers, handles HTTP requests.
+  - `pet/pet.controller.ts`: Controller for Pet endpoints (create, get by status, get by tags, etc.).
+  - `pet/pet.interface.ts`: TypeScript types for Pet API requests and responses, generated from Swagger.
 
-## Structure
-- `src/controllers/`: API controllers and interfaces
-- `src/tests/`: Playwright test specs
-- `src/utils/`: Swagger schema and type generation utilities
+- `src/testData/`
+  - `pet/builders/createPetBody.builder.ts`: Builder class for constructing request bodies for creating pets.
+  - `pet/createPetBody.json`: Example request body for creating a pet.
+  - `pet/jsonSchema/`: JSON schemas for validating API responses (e.g., `createPet.schema.json`, `findPetByStatus.schema.json`).
 
-## Getting Started
-1. Install dependencies: `npm install`
-2. Generate types: `npm run generate-types` (if available)
-3. Run tests: `npx playwright test`
+- `src/tests/`
+  - `pet.spec.ts`: Playwright test suite for Pet API endpoints (create, find by status, etc.).
+
+- `src/utils/`
+  - `generateTypes.ts`: Utility for generating TypeScript types from Swagger/OpenAPI.
+  - `schemaValidator.ts`: Utility for validating API responses against JSON schemas using AJV.
+  - `swagger.util.ts`: Swagger/OpenAPI related utilities.
+
+## Scripts
+
+- `npm run lint:fix`: Runs ESLint with auto-fix to format and fix code style issues.
+- (Add a script for type generation if you use `openapi-typescript`).
+
+## How to Use
+
+1. **Install dependencies:**  
+   `npm install`
+
+2. **(Optional) Generate types from Swagger:**  
+   If you have a script, run:  
+   `npm run generate-types`
+
+3. **Run tests:**  
+   `npx playwright test`
+
+4. **Lint and auto-fix code:**  
+   `npm run lint:fix`
+
+## Testing Approach
+
+- Uses Playwright’s test runner for API tests.
+- Controllers encapsulate API logic for reusability.
+- Request/response types are generated from Swagger for type safety.
+- JSON schema validation ensures API responses match the contract.
 
 ---
 For more details, see the code and comments in each file.
