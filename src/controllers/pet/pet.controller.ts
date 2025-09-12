@@ -2,6 +2,7 @@ import { BaseController, ParseResponse } from "../base.controller";
 import {
   DeletePetHeader,
   GetPetByStatusParam,
+  GetPetByStatusResponse,
   GetPetByTags,
   PostPetBody,
   PostPetResponse,
@@ -15,9 +16,11 @@ export class PetController extends BaseController {
       data,
     });
   }
-  // TODO: update the below methods to return the responseObj
-  async getPetByStatus(params: GetPetByStatusParam) {
-    await this.get("/pet/findByStatus", { params });
+
+  async getPetByStatus(
+    params: GetPetByStatusParam
+  ): Promise<ParseResponse<GetPetByStatusResponse>> {
+    return this.get("pet/findByStatus", { params });
   }
 
   async getPetByTags(params: GetPetByTags) {
