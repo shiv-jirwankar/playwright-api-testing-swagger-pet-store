@@ -1,6 +1,6 @@
 # Playwright API Testing - Swagger Pet Store
 
-This project demonstrates API testing for the Swagger Pet Store using Playwright and TypeScript.
+This project showcases an API automation testing framework built to automate and validate Swagger's PetStore API: https://petstore3.swagger.io/
 
 ## Project Structure
 
